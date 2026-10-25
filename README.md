@@ -18,21 +18,18 @@
 
 ## 📌 Overview
 
-Sonatype Nexus Repository Manager configuration security auditor
+ONexusX is an offline, read-only Sonatype Nexus Repository Manager configuration auditor. It parses nexus.properties, Jetty HTTPS XML, datastore/realm exports, LDAP/SAML/Crowd settings, repositories, blobstores, and optional nginx frontends. Secrets are masked; findings map to CWE and MITRE ATT&CK with multi-format export and CI gates.
 
 ---
 
 ## ✨ Features
 
-- Stdlib parsers — Java .properties, Jetty XML, JSON / XML exports, nginx.conf, .vmoptions
-- nexus.properties / nexus-default.properties — nexus-args TLS, application-host, scripts creation, random admin password, anti-CSRF, H2 / Orient listeners, datastore credentials
-- Jetty jetty-https.xml / jetty.xml — protocols, cipher suites, keystore passwords, server version
-- Realm order, anonymous access, LDAP / SAML / Crowd
-- Repository exports — hosted / proxy / group, Docker connectors, dependency confusion, routing
-- Blobstore & $data-dir permission walk, soft quota
-- Secrets masked everywhere; --root discovery; CWE + MITRE
-- Export TXT / Markdown / JSON / CSV / SARIF 2.1.0
-- Self-test --demo, CI gates --fail-on / --min-severity
+- Stdlib parsers for Java .properties, Jetty XML, JSON/XML exports, nginx.conf, and .vmoptions
+- nexus.properties review: TLS args, application-host, scripts creation, admin password, anti-CSRF, H2/Orient, datastore credentials
+- Jetty HTTPS protocols, cipher suites, keystore passwords, and server version checks
+- Realm order, anonymous access, LDAP / SAML / Crowd configuration review
+- Repository exports (hosted/proxy/group, Docker connectors, dependency confusion) and blobstore permission walk
+- Secret masking, `--root` discovery, TXT/MD/JSON/CSV/SARIF export, `--demo` and fail-on gates
 
 ---
 
@@ -46,7 +43,10 @@ Sonatype Nexus Repository Manager configuration security auditor
 ## 🚀 Usage
 
 ```bash
-./ONexusX
+./ONexusX /opt/sonatype/nexus --scan
+./ONexusX --file nexus.properties --nginx nexus.conf -f json -o nexus.json
+./ONexusX --demo --fail-on high
+./ONexusX --help
 ```
 
 ---
